@@ -1,0 +1,45 @@
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+
+//period times two, for 5 sec period enter 10.0
+#define PERIODTT 10.0
+#define PI 3.1415926538
+float a =((-sign(fract(iTime/PERIODTT)-0.5))+1.0)/2.0; //square signal from https://www.shadertoy.com/view/MtffWs
+float b=(cos(iTime+PI*a)+1.0)/2.0;
+
+float xa = iResolution.x*a;
+float ya = iResolution.y*a;
+
+float xb = iResolution.x*b;
+float yb = iResolution.y*b;
+
+vec2 c = abs(vec2(xa,ya)-fragCoord.xy)/vec2(xb,yb); //is it doing it like this
+//vec2 c = abs((iResolution.xy*a)-fragCoord.xy)/(iResolution.xy*b); //or this better?
+
+fragColor = vec4 (c.yxx,1.0);
+
+
+
+
+///rest is some stuff I've tried to make it black and white but can't get rid of the spike
+
+
+//vec3 mi = min (c.xxx,c.yyy);
+//vec3 ma = max (c.xxx,c.yyy);
+
+//fragColor = vec4(max(ma,mi),0.0); how can I get rid of the spike of black though?
+
+
+//some other stuff
+
+
+//fragColor = vec4(s,0.0);
+
+//fragColor = vec4(c.yxx-(c.xyy-s),0.0);
+
+
+
+//fragColor = vec4(c.xxx+c.yyy,0.0);
+
+}
